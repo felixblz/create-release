@@ -15,7 +15,7 @@ __nccwpck_require__.a(__webpack_module__, async (__webpack_handle_async_dependen
 /* harmony import */ var _create_release__WEBPACK_IMPORTED_MODULE_0__ = __nccwpck_require__(80);
 
 
-await _create_release__WEBPACK_IMPORTED_MODULE_0__();
+await (0,_create_release__WEBPACK_IMPORTED_MODULE_0__.run)();
 
 __webpack_async_result__();
 } catch(e) { __webpack_async_result__(e); } }, 1);

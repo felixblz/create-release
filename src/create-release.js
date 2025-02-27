@@ -2,7 +2,7 @@ import core from "@actions/core";
 import github from "@actions/github";
 import fs from "fs";
 
-export default async function run() {
+export async function run() {
   try {
     // Get authenticated GitHub client (Ocktokit): https://github.com/actions/toolkit/tree/master/packages/github#usage
     const gh = github.getOctokit(
