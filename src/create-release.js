@@ -25,6 +25,8 @@ async function run() {
     const draft = core.getInput("draft", { required: false }) === "true";
     const prerelease =
       core.getInput("prerelease", { required: false }) === "true";
+    const generate_release_notes =
+      core.getInput("generate_release_notes", { required: false }) === "true";
     const commitish =
       core.getInput("commitish", { required: false }) || context.sha;
 
@@ -52,6 +54,7 @@ async function run() {
       draft,
       prerelease,
       target_commitish: commitish,
+      generate_release_notes,
     });
 
     // Get the ID, html_url, and upload URL for the created Release from the response
