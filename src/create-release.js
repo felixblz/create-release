@@ -1,8 +1,8 @@
-import core from "@actions/core";
-import github from "@actions/github";
-import fs from "fs";
+const core = require("@actions/core");
+const github = require("@actions/github");
+const fs = require("fs");
 
-export async function run() {
+async function run() {
   try {
     // Get authenticated GitHub client (Ocktokit): https://github.com/actions/toolkit/tree/master/packages/github#usage
     const gh = github.getOctokit(
@@ -67,3 +67,5 @@ export async function run() {
     core.setFailed(error.message);
   }
 }
+
+module.exports = { run };

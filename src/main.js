@@ -1,3 +1,3 @@
-import { run } from "./create-release";
+const { run } = require("./create-release");
 
-await run();
+run();
