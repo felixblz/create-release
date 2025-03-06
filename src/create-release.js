@@ -4,7 +4,7 @@ const fs = require("fs");
 
 async function run() {
   try {
-    // Get authenticated GitHub client (Ocktokit): https://github.com/actions/toolkit/tree/master/packages/github#usage
+    // Get authenticated GitHub client (Octokit): https://github.com/actions/toolkit/tree/master/packages/github#usage
     const gh = github.getOctokit(
       core.getInput("github-token", { required: true }),
     );
@@ -15,8 +15,6 @@ async function run() {
 
     // Get the inputs from the workflow file: https://github.com/actions/toolkit/tree/master/packages/core#inputsoutputs
     const tagName = core.getInput("tag_name", { required: true });
-
-    // This removes the 'refs/tags' portion of the string, i.e. from 'refs/tags/v1.10.15' to 'v1.10.15'
     const tag = tagName.replace("refs/tags/", "");
     const releaseName = core
       .getInput("release_name", { required: false })
@@ -27,6 +25,11 @@ async function run() {
       core.getInput("prerelease", { required: false }) === "true";
     const generate_release_notes =
       core.getInput("generate_release_notes", { required: false }) === "true";
+    const discussion_category_name = core.getInput("discussion_category_name", {
+      required: false,
+    });
+    const make_latest =
+      core.getInput("make_latest", { required: false }) === "true";
     const commitish =
       core.getInput("commitish", { required: false }) || context.sha;
 
@@ -49,12 +52,14 @@ async function run() {
       owner,
       repo,
       tag_name: tag,
+      target_commitish: commitish,
       name: releaseName,
       body: bodyFileContent || body,
       draft,
       prerelease,
-      target_commitish: commitish,
+      discussion_category_name,
       generate_release_notes,
+      make_latest,
     });
 
     // Get the ID, html_url, and upload URL for the created Release from the response
