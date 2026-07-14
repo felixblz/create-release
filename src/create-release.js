@@ -1,15 +1,12 @@
-const core = require("@actions/core");
-const github = require("@actions/github");
-const fs = require("fs");
+import * as core from "@actions/core";
+import { getOctokit, context } from "@actions/github";
+import { readFileSync } from "fs";
 
 async function run() {
   try {
     // Get authenticated GitHub client (Ocktokit): https://github.com/actions/toolkit/tree/master/packages/github#usage
-    const gh = github.getOctokit(
-      core.getInput("github-token", { required: true }),
-    );
+    const gh = getOctokit(core.getInput("github-token", { required: true }));
 
-    const context = github.context;
     // Get owner and repo from context of payload that triggered the action
     const { owner: currentOwner, repo: currentRepo } = context.repo;
 
@@ -36,7 +33,7 @@ async function run() {
     let bodyFileContent = null;
     if (bodyPath !== "" && !!bodyPath) {
       try {
-        bodyFileContent = fs.readFileSync(bodyPath, { encoding: "utf8" });
+        bodyFileContent = readFileSync(bodyPath, { encoding: "utf8" });
       } catch (error) {
         core.setFailed(error.message);
       }
@@ -71,4 +68,4 @@ async function run() {
   }
 }
 
-module.exports = { run };
+export { run };

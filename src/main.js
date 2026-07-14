@@ -1,3 +1,3 @@
-const { run } = require("./create-release");
+import { run } from "./create-release.js";
 
 run();

@@ -1,7 +1,7 @@
 {
   "name": "create-release",
   "version": "1.0.0",
-  "type": "commonjs",
+  "type": "module",
   "description": "Create a release",
   "main": "dist/index.js",
   "scripts": {
@@ -17,11 +17,11 @@
   "author": "felixblz",
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.11.1",
-    "@actions/github": "^6.0.0"
+    "@actions/core": "^3.0.1",
+    "@actions/github": "^9.1.1"
   },
   "devDependencies": {
-    "@vercel/ncc": "^0.38.3",
-    "prettier": "^3.5.3"
+    "@vercel/ncc": "^0.44.1",
+    "prettier": "^3.9.5"
   }
 }
