@@ -1,14 +1,16 @@
 import * as core from "@actions/core";
-import { getOctokit, context } from "@actions/github";
+import * as github from "@actions/github";
 import { readFileSync } from "fs";
 
 async function run() {
   try {
+    const token = core.getInput("github-token", { required: true });
+
     // Get authenticated GitHub client (Ocktokit): https://github.com/actions/toolkit/tree/master/packages/github#usage
-    const gh = getOctokit(core.getInput("github-token", { required: true }));
+    const gh = github.getOctokit(token);
 
     // Get owner and repo from context of payload that triggered the action
-    const { owner: currentOwner, repo: currentRepo } = context.repo;
+    const { owner: currentOwner, repo: currentRepo } = github.context.repo;
 
     // Get the inputs from the workflow file: https://github.com/actions/toolkit/tree/master/packages/core#inputsoutputs
     const tagName = core.getInput("tag_name", { required: true });
@@ -25,7 +27,7 @@ async function run() {
     const generate_release_notes =
       core.getInput("generate_release_notes", { required: false }) === "true";
     const commitish =
-      core.getInput("commitish", { required: false }) || context.sha;
+      core.getInput("commitish", { required: false }) || github.context.sha;
 
     const bodyPath = core.getInput("body_path", { required: false });
     const owner = core.getInput("owner", { required: false }) || currentOwner;

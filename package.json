@@ -7,7 +7,8 @@
   "scripts": {
     "prettier": "npx prettier . --write",
     "prettier:check": "npx prettier . --check",
-    "build": "npm run prettier && ncc build src/main.js --license licenses.txt",
+    "build": "npm run prettier && npm run build:only",
+    "build:only": "ncc build src/main.js --license licenses.txt",
     "precommit": "npm run build && git add dist/"
   },
   "repository": {
@@ -21,7 +22,7 @@
     "@actions/github": "^9.1.1"
   },
   "devDependencies": {
-    "@vercel/ncc": "^0.44.1",
-    "prettier": "^3.9.5"
+    "@vercel/ncc": "^0.45.0",
+    "prettier": "^3.9.6"
   }
 }
